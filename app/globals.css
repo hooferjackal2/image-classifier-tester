@@ -25,3 +25,17 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+h1 {
+  font-size: 36pt;
+}
+
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 10px;
+}
+
+.main-text-container {
+  text-align: center;
+}
