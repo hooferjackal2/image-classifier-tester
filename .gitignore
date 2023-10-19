@@ -33,3 +33,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pycache
+classifier/__pycache__/*
+classifier/.venv/*
