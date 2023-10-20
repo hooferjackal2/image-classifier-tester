@@ -5,11 +5,12 @@ interface Props {
   height: number;
   width: number;
   bounds: {x1: number, y1: number, x2: number, y2: number};
+  scaling: number;
   boundsChange: (topleft: boolean, x: number, y: number) => void;
   onStop: () => void;
 }
 
-const BoundingBox = ({ height, width, bounds, boundsChange, onStop }: Props) => {
+const BoundingBox = ({ height, width, bounds, scaling, boundsChange, onStop }: Props) => {
 
   const leftLineStyle = {
     position: "absolute",
@@ -82,8 +83,14 @@ const BoundingBox = ({ height, width, bounds, boundsChange, onStop }: Props) => 
         ></Corner>
       </div>
       <div className="box-debug">
-        <p>Top left: ({bounds.x1}, {bounds.y1})</p>
-        <p>Bottom right: ({bounds.x2}, {bounds.y2})</p>
+        <p>
+          Top left: ({(bounds.x1 * scaling).toFixed(0)},
+          {(bounds.y1 * scaling).toFixed(0)})
+        </p>
+        <p>
+          Bottom right: ({(bounds.x2 * scaling).toFixed(0)},
+          {(bounds.y2 * scaling).toFixed(0)})
+        </p>
       </div>
     </div>
   )

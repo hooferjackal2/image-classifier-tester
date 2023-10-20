@@ -3,8 +3,17 @@ from torchvision.models import resnet50, ResNet50_Weights
 from torchvision.transforms import functional
 from flask import jsonify
 
-def examplefunc(x1, x2, y1, y2):
-  img = read_image("SurfacePro3.png", mode=ImageReadMode.RGB)
+def get_path(imgname):
+  if imgname == "animals":
+    return "../images/farm-animals.jpeg"
+  elif imgname == "furniture":
+    return "../images/furniture.jpg"
+  elif imgname == "vegetables":
+    return "../images/vegetables.jpg"
+
+def examplefunc(x1, x2, y1, y2, imgname):
+
+  img = read_image(get_path(imgname), mode=ImageReadMode.RGB)
 
   #TODO: Make sure this caches and doesn't remake the model every time
   weights = ResNet50_Weights.DEFAULT

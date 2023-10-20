@@ -9,7 +9,8 @@ CORS(app)
 def set():
     input = request.get_json()
     #return jsonify({"message": "Data received", "data": input_json})
-    return examplefunc(input["x1"], input["x2"], input["y1"], input["y2"])
+    return examplefunc(input["x1"], input["x2"], input["y1"], input["y2"],
+                       input["imgname"])
 
 @app.route("/data", methods=['GET'])
 def get_data():
