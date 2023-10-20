@@ -10,9 +10,10 @@ interface Props {
   posx: number;
   posy: number;
   boundsChange: (topleft: boolean, x: number, y: number) => void;
+  onStop: () => void;
 }
 
-const Corner = ({ top, left, right, bottom, topleft, posx, posy, boundsChange }: Props) => {
+const Corner = ({ top, left, right, bottom, topleft, posx, posy, boundsChange, onStop }: Props) => {
 
   const controlledDrag = (e: DraggableEvent, position: {x: number, y: number}) => {
     const {x, y} = position;
@@ -27,6 +28,7 @@ const Corner = ({ top, left, right, bottom, topleft, posx, posy, boundsChange }:
     <Draggable 
     position={{x: posx, y: posy}}
     onDrag={controlledDrag}
+    onStop={onStop}
     bounds={{
       top: top,
       left: left,

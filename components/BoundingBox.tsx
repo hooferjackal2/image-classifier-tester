@@ -6,15 +6,16 @@ interface Props {
   width: number;
   bounds: {x1: number, y1: number, x2: number, y2: number};
   boundsChange: (topleft: boolean, x: number, y: number) => void;
+  onStop: () => void;
 }
 
-const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
+const BoundingBox = ({ height, width, bounds, boundsChange, onStop }: Props) => {
 
   const leftLineStyle = {
     position: "absolute",
     left: bounds.x1,
     top: bounds.y1 - 2,
-    "border-left": "solid #660000 2px",
+    "borderLeft": "solid #660000 2px",
     transform: "translate(-2px, 0px)",
     height: bounds.y2 - bounds.y1 - 2,
     width: 10
@@ -24,7 +25,7 @@ const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
     position: "absolute",
     left: bounds.x1 - 2,
     top: bounds.y1,
-    "border-top": "solid #660000 2px",
+    "borderTop": "solid #660000 2px",
     transform: "translate(0px, -2px)",
     height: 10,
     width: bounds.x2 - bounds.x1 - 2
@@ -34,7 +35,7 @@ const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
     position: "absolute",
     left: bounds.x2,
     top: bounds.y1 - 2,
-    "border-left": "solid #660000 2px",
+    "borderLeft": "solid #660000 2px",
     transform: "translate(-4px, 0px)",
     height: bounds.y2 - bounds.y1 - 2,
     width: 10
@@ -44,7 +45,7 @@ const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
     position: "absolute",
     left: bounds.x1 - 2,
     top: bounds.y2,
-    "border-top": "solid #660000 2px",
+    "borderTop": "solid #660000 2px",
     transform: "translate(0px, -4px)",
     height: 10,
     width: bounds.x2 - bounds.x1 - 2
@@ -65,7 +66,9 @@ const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
           topleft={true}
           posx={bounds.x1}
           posy={bounds.y1}
-          boundsChange={boundsChange}></Corner>
+          boundsChange={boundsChange}
+          onStop={onStop}
+        ></Corner>
         <Corner
           top={bounds.y1 + 10}
           left={bounds.x1 + 10}
@@ -74,10 +77,13 @@ const BoundingBox = ({ height, width, bounds, boundsChange }: Props) => {
           topleft={false}
           posx={bounds.x2}
           posy={bounds.y2}
-          boundsChange={boundsChange}></Corner>
+          boundsChange={boundsChange}
+          onStop={onStop}
+        ></Corner>
       </div>
       <div className="box-debug">
-        <p>Box stretches from ({bounds.x1}, {bounds.y1}) to ({bounds.x2}, {bounds.y2})</p>
+        <p>Top left: ({bounds.x1}, {bounds.y1})</p>
+        <p>Bottom right: ({bounds.x2}, {bounds.y2})</p>
       </div>
     </div>
   )

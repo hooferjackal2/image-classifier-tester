@@ -37,3 +37,9 @@ next-env.d.ts
 # pycache
 classifier/__pycache__/*
 classifier/.venv/*
+
+# hot update files
+
+*.hot-update.js
+*.gz
+*.hot-update.json
