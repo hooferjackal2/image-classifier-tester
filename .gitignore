@@ -43,3 +43,6 @@ classifier/.venv/*
 *.hot-update.js
 *.gz
 *.hot-update.json
+
+# node_modules
+frontend/node_modules
