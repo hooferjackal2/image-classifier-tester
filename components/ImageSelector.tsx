@@ -12,7 +12,7 @@ const ImageSelector = ({ setImage }: Props) => {
   ]
 
   return (
-    <div className="image-selector">
+    <div className="selector">
       {imagePreviews.map(image => {
         return <img
           className="preview-image"

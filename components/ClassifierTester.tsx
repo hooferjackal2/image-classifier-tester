@@ -7,9 +7,10 @@ import { useState, useRef, useEffect } from 'react';
 interface Props {
   search: string;
   image: string;
+  model: string;
 }
 
-const ClassifierTester = ({ search, image }: Props) => {
+const ClassifierTester = ({ search, image, model }: Props) => {
   const maxWidth = 600;
   const imgRef = useRef(null);
   const [dims, setDims] = useState({height: 0, width: 0});
@@ -43,7 +44,7 @@ const ClassifierTester = ({ search, image }: Props) => {
 
   const handleStop = () => {
     if (bounds.x1 == bounds.x2 || bounds.y1 == bounds.y2){ return }
-    fetch('http://127.0.0.1:5000/set',{
+    fetch('http://127.0.0.1:5000/classify',{
       method: 'POST',
       headers : {
         'Content-Type':'application/json'
@@ -53,7 +54,8 @@ const ClassifierTester = ({ search, image }: Props) => {
         x2: Math.round(bounds.x2 * scaling),
         y1: Math.round(bounds.y1 * scaling),
         y2: Math.round(bounds.y2 * scaling),
-        imgname: image
+        imgname: image,
+        model: model
       })
     })
     .then(response => response.json())
@@ -89,7 +91,7 @@ const ClassifierTester = ({ search, image }: Props) => {
     setStopBounds({...bounds});
   }, [imgRef.current]);
 
-  useEffect(() => handleStop(), [stopBounds, image]);
+  useEffect(() => handleStop(), [stopBounds, image, model]);
 
   /*useEffect(() => {
     console.log(imgRef.current.naturalHeight);
@@ -116,12 +118,16 @@ const ClassifierTester = ({ search, image }: Props) => {
       </div>
       <div className="classifier-results">
         {data.exists ?
-          <ul>
-            {/*<SearchedCategory></SearchedCategory>
-            <TopCategories></TopCategories>*/}
-            {data.ranks.map((obj: {key: number, pair: [string, number]}) => 
-              <li key={obj.key}>{obj.pair[0]}: {Number(obj.pair[1]).toFixed(5)}</li>)}
-          </ul>
+          <div>
+            <p>The classifier thinks this is a...</p>
+            <br></br>
+            <ul>
+              {/*<SearchedCategory></SearchedCategory>
+              <TopCategories></TopCategories>*/}
+              {data.ranks.map((obj: {key: number, pair: [string, number]}) => 
+                <li key={obj.key}>{obj.pair[0]}: {Number(obj.pair[1]).toFixed(5)}</li>)}
+            </ul>
+          </div>
           :
           <p>Loading...</p>
         }

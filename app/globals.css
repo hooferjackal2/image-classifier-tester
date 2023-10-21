@@ -27,10 +27,13 @@ body {
 }
 
 .classifier-results {
-  height: 200px;
   width: 200px;
+  padding: 10px;
   margin-left: 100px;
   border: solid #dddddd 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .corner {
@@ -106,12 +109,6 @@ input {
   border: solid #dddddd 2px;
 }
 
-.image-selector {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-}
-
 .main-text-container {
   text-align: center;
 }
@@ -120,6 +117,7 @@ input {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
+  margin-bottom: 200px;
   align-items: center;
   justify-content: center;
 }
@@ -130,6 +128,23 @@ input {
   margin-top: 20px;
 }
 
+.model-button {
+  margin-left: 10px;
+  background-color: #222222;
+  padding: 5px;
+}
+
 .preview-image {
   margin-left: 10px;
+}
+
+.selector {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.text-bar {
+  background-color: #111111;
+  padding: 5px;
 }

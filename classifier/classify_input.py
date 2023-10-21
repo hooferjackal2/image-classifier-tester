@@ -1,5 +1,8 @@
 from torchvision.io import read_image, ImageReadMode, encode_png, write_file
-from torchvision.models import resnet50, ResNet50_Weights
+from torchvision.models import (
+  resnet50, ResNet50_Weights,
+  alexnet, AlexNet_Weights
+)
 from torchvision.transforms import functional
 from flask import jsonify
 
@@ -11,26 +14,30 @@ def get_path(imgname):
   elif imgname == "vegetables":
     return "../images/vegetables.jpg"
 
-def examplefunc(x1, x2, y1, y2, imgname):
+def classify_input(x1, x2, y1, y2, imgname, model):
 
   img = read_image(get_path(imgname), mode=ImageReadMode.RGB)
 
-  #TODO: Make sure this caches and doesn't remake the model every time
-  weights = ResNet50_Weights.DEFAULT
-  model = resnet50(weights=weights)
-  model.eval()
-
   cropped = functional.crop(img, y1, x1, y2-y1, x2-x1)
 
-  preprocess = weights.transforms()
+  #img_png = encode_png(cropped)
+  #write_file("./output.png", img_png)
+  print(model)
+  if model == "resnet":
+    weights = ResNet50_Weights.DEFAULT
+    model = resnet50(weights=weights)
+  elif model == "alexnet":
+    weights = AlexNet_Weights.DEFAULT
+    model = alexnet(weights=weights)
+  else:
+    return {}, 404
+  
+  model.eval()
 
+  preprocess = weights.transforms()
   batch = preprocess(cropped).unsqueeze(0)
 
-  img_png = encode_png(cropped)
-  write_file("./output.png", img_png)
-
   prediction = model(batch).squeeze(0).softmax(0)
-  #print(prediction)
   sorted_classes = prediction.argsort(descending=True)
   results = []
   for i in range(5):
